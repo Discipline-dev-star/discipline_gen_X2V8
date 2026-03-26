@@ -142,3 +142,14 @@ class Database:
         count = cursor.fetchone()[0]
         conn.close()
         return count
+
+    def execute(self, sql, params=None):
+        """Выполняет произвольный SQL запрос."""
+        conn = self.get_conn()
+        cursor = conn.cursor()
+        if params:
+            cursor.execute(sql, params)
+        else:
+            cursor.execute(sql)
+        conn.commit()
+        conn.close()
